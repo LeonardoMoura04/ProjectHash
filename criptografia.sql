@@ -2,7 +2,12 @@ CREATE DATABASE criptografia;
 USE criptografia;
 
 CREATE TABLE login (
+	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
 	usuario VARCHAR(100) NOT NULL,
     senha VARCHAR(100) NOT NULL,
     salt VARCHAR(100) NOT NULL
 );
+
+DROP TABLE login;
+
+SELECT * FROM login;
