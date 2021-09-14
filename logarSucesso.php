@@ -51,9 +51,15 @@
                         $saltBanco = $row["salt"];
 
                         if(password_verify(hash('sha256', $senha . $saltBanco), $senhaBanco)){
-                            header("location: logarSucesso.php");
-                            exit();
+                            echo "DEU CERTO";
+
+                            // header("location: index.php");
+                            // exit();
                         }
+
+                        
+                        
+
                     } else{
                         header("location: ERROR_TO_DEFINE.php");
                         exit();
@@ -94,7 +100,7 @@
 						</div>
 						<div class="content">
 							<div class="inner">
-								<h1>Criptografia</h1>
+								<h1>FOI LOGADO COM SUCESSO!</h1>
 								<p>Aqui neste site, iremos exemplificar e colocar em prática os ensinamentos que foram apresentados <br></br>
                                     pelo Prof. Gregory Oliveira, do UNASP. Clique na aba "Cripto" abaixo para saber mais.
                                 </p>
