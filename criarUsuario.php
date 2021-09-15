@@ -3,47 +3,45 @@
     require_once "conexao.php";
     
     // Define variables and initialize with empty values
-    $usuarioCriar = $senhaCriar = $usuario = $senha = "";
-    $usuarioCriar_err = $senhaCriar_err = $usuario_err = $senha_err = "";
+    $usuario = $senha = "";
+    $usuario_err = $senha_err = "";
 
     // Processing form data when form is submitted
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         // Validações
-        $input_usuario = trim($_POST["usuarioCriar"]);
+        $input_usuario = trim($_POST["usuario"]);
         if(empty($input_usuario)){
-            $usuarioCriar_err = "Por favor, insira seu usuario.";
+            $usuario_err = "Por favor, insira seu usuario.";
         } else{
-            $usuarioCriar = $input_usuario;
+            $usuario = $input_usuario;
         }
 
-        $input_senha = trim($_POST["senhaCriar"]);
+        $input_senha = trim($_POST["senha"]);
         if(empty($input_senha)){
-            $senhaCriar_err = "Por favor, insira sua Senha.";
+            $senha_err = "Por favor, insira sua Senha.";
         } else{
-            $senhaCriar = $input_senha;
+            $senha = $input_senha;
         }
         
         // Check input errors before inserting in database
-        if(empty($usuarioCriar_err) && empty($senhaCriar_err)){
+        if(empty($usuario_err) && empty($senha_err)){
             // Prepare an insert statement
             $sql = "INSERT INTO login (usuario, senha, salt) VALUES (?, ?, ?);";
             
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
                 mysqli_stmt_bind_param($stmt, "sss", $param_usuario, $param_senha, $param_salt);
-
-                echo "Senha Raw:" . $senha;
                 
                 // Set parameters
-                $param_usuario = $usuarioCriar;
+                $param_usuario = $usuario;
                 $param_salt = sha1(bin2hex(random_bytes(90)));
                 $param_senha = hash('sha256', $senha . $param_salt);
                 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
                     // Records created successfully. Redirect to landing page
-                    header("location: index.php");
+                    header("location: criarSucesso.php");
                     exit();
                 } else{
                     echo "Oops! Something went wrong. Please try again later.";
@@ -83,13 +81,13 @@
                                 <div class="fields">
                                     <div class="field half">
                                         <label>Usuário</label>
-                                        <input type="text" name="usuarioCriar" class="form-control <?php echo (!empty($usuario_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $usuario; ?>">
+                                        <input type="text" name="usuario" class="form-control <?php echo (!empty($usuario_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $usuario; ?>">
                                         <span class="invalid-feedback"><?php echo $usuario_err;?></span>
                                     </div>
 
                                     <div class="field half">
                                         <label>Senha</label>
-                                        <input type="password" name="senhaCriar" class="form-control <?php echo (!empty($senha_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $senha; ?>">
+                                        <input type="password" name="senha" class="form-control <?php echo (!empty($senha_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $senha; ?>">
                                         <span class="invalid-feedback"><?php echo $senha_err;?></span>
                                     </div>
                                 </div>

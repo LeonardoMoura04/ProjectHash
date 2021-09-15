@@ -39,18 +39,12 @@
 
                     if(mysqli_num_rows($result) == 1){
                         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
-
-                        echo "Usuário Banco: " . $row["usuario"] . "</br>";
-                        echo "Senha Banco: " . $row["senha"] . "</br>";
-                        echo "Salt Banco: " . $row["salt"] . "</br>";
-                        echo "Senha Raw: " . $senha . "</br>";
-                        echo "Senha com Salt: " . hash('sha256', $senha . $row["salt"]) . "</br>";
                         
                         $usuarioBanco = $row["usuario"];
                         $senhaBanco = $row["senha"];
                         $saltBanco = $row["salt"];
 
-                        if(password_verify(hash('sha256', $senha . $saltBanco), $senhaBanco)){
+                        if(hash('sha256', $senha . $saltBanco) == $senhaBanco){
                             header("location: logarSucesso.php");
                             exit();
                         }
@@ -96,7 +90,7 @@
 							<div class="inner">
 								<h1>Criptografia</h1>
 								<p>Aqui neste site, iremos exemplificar e colocar em prática os ensinamentos que foram apresentados <br></br>
-                                    pelo Prof. Gregory Oliveira, do UNASP. Clique na aba "Cripto" abaixo para saber mais.
+                                    pelo Prof. Gregory Oliveira, do UNASP. Clique na aba "Cripto" abaixo para saber mais!
                                 </p>
 							</div>
 						</div>
@@ -115,9 +109,15 @@
                         <!-- Cripto -->
                         <article id="cripto">
                             <h2 class="major">Cripto</h2>
-                            <span class="image main"><img src="images/pic01.jpg" alt="" /></span>
-                            <p>Aenean ornare velit lacus, ac varius enim ullamcorper eu. Proin aliquam facilisis ante interdum congue. Integer mollis, nisl amet convallis, porttitor magna ullamcorper, amet egestas mauris. Ut magna finibus nisi nec lacinia. Nam maximus erat id euismod egestas. By the way, check out my <a href="#work">awesome work</a>.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus, vel sed vehicula.</p>
+                            <span class="image main"><img src="images/cripto.jpg" alt="" /></span>
+                            <p>"Cripto" foi um projeto criado para conseguir demonstrar para o Prof. Gregory Oliveira as nossas técnicas de criptografia em PHP. 
+                                O projeto foi composto pelo alunos: Débora, Leonardo Moura e Matheus Bonotto.</p>
+                            <p>O objetivo do nosso projeto foi deixá-lo com uma criptografia única. Para alcançar este objetivo, utilizamos alguns métodos randômicos e a utilização de salt para deixar as nossas senhas únicas.
+                                Inicialmente, criamos nosso salt sendo ele randômico, utilizando o random_bytes, com 90 dígitos de tamanho. Logo após o convertemos de binário para hexadecimal, e por fim, finalizamos ele
+                                com a criptografia SHA1.
+                                Após isso concatenamos a senha do usuário com este salt criptografado, e novamente criptografamos eles dois juntos com outra criptografia, o SHA256.
+                                Com isso em mente, temos uma senha extremamente difícil de ser descoberta ou hackeada, pois ela está randomizada, concatenada com textos internos e criptografada por três níveis.
+                            </p>
                         </article>
 
                         <!-- Login -->
