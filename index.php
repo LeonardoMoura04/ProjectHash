@@ -111,7 +111,7 @@
                             <h2 class="major">Cripto</h2>
                             <span class="image main"><img src="images/cripto.jpg" alt="" /></span>
                             <p>"Cripto" foi um projeto criado para conseguir demonstrar para o Prof. Gregory Oliveira as nossas técnicas de criptografia em PHP. 
-                                O projeto foi composto pelo alunos: Débora, Leonardo Moura e Matheus Bonotto.</p>
+                                O projeto foi composto pelo alunos: Débora Alessandra, Leonardo Moura e Matheus Bonotto.</p>
                             <p>O objetivo do nosso projeto foi deixá-lo com uma criptografia única. Para alcançar este objetivo, utilizamos alguns métodos randômicos e a utilização de salt para deixar as nossas senhas únicas.
                                 Inicialmente, criamos nosso salt sendo ele randômico, utilizando o random_bytes, com 90 dígitos de tamanho. Logo após o convertemos de binário para hexadecimal, e por fim, finalizamos ele
                                 com a criptografia SHA1.
