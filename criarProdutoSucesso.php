@@ -19,14 +19,14 @@
 						</div>
 						<div class="content">
 							<div class="inner">
-								<h1>FOI LOGADO COM SUCESSO!</h1>
+								<h1>O PRODUTO FOI CRIADA COM SUCESSO!</h1>
 							</div>
 						</div>
 						<nav>
 							<ul>
 								<li><a href="#cripto">Cripto</a></li>
-								<li><a href="listarProduto.php">Produtos</a></li>
-                                <li><a href="index.php">Deslogar</a></li>
+                                <li><a href="index.php">Home</a></li>
+                                <li><a href="index.php#login">Logar</a></li>
 							</ul>
 						</nav>
 					</header>
@@ -47,33 +47,7 @@
                                 Com isso em mente, temos uma senha extremamente difícil de ser descoberta ou hackeada, pois ela está randomizada, concatenada com textos internos e criptografada por três níveis.
                             </p>
                         </article>
-
-                        <!-- Login -->
-                        <article id="login">
-                            <h2 class="major">Login</h2>
-                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                                <div class="fields">
-                                    <div class="field half">
-                                        <label>Usuário</label>
-                                        <input type="text" name="usuario" class="form-control <?php echo (!empty($usuario_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $usuario; ?>">
-                                        <span class="invalid-feedback"><?php echo $usuario_err;?></span>
-                                    </div>
-
-                                    <div class="field half">
-                                        <label>Senha</label>
-                                        <input type="password" name="senha" class="form-control <?php echo (!empty($senha_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $senha; ?>">
-                                        <span class="invalid-feedback"><?php echo $senha_err;?></span>
-                                    </div>
-                                </div>
-                                
-                                <ul class="actions">
-                                    <li><input type="submit" class="primary" value="Verificar Login" /></li>
-                                    <li><input type="reset" value="Resetar Campos" /></li>
-                                </ul>
-                            </form>
-                        </article>
 					</div>
-
                     
 
 				<!-- Footer -->

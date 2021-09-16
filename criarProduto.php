@@ -3,45 +3,46 @@
     require_once "conexao.php";
     
     // Define variables and initialize with empty values
-    $usuario = $senha = "";
-    $usuario_err = $senha_err = "";
-
+    $nomeProduto = "";
+    $quantidade = 0;
+    $dataCadastro = 0;
+    $msg = "";
     // Processing form data when form is submitted
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
         // Validações
-        $input_usuario = trim($_POST["usuario"]);
-        if(empty($input_usuario)){
-            $usuario_err = "Por favor, insira seu usuario.";
+        $input_nomeProduto = trim($_POST["nomeProduto"]);
+        if(empty($input_nomeProduto)){
+            $msg = "Por favor, insira um produto.";
         } else{
-            $usuario = $input_usuario;
+            $nomeProduto = $input_nomeProduto;
         }
 
-        $input_senha = trim($_POST["senha"]);
-        if(empty($input_senha)){
-            $senha_err = "Por favor, insira sua Senha.";
+        $input_quantidade = trim($_POST["quantidade"]);
+        if(empty($input_quantidade)){
+            $msg = "Por favor, insira uma quantidade.";
         } else{
-            $senha = $input_senha;
+            $quantidade = $input_quantidade;
         }
         
         // Check input errors before inserting in database
-        if(empty($usuario_err) && empty($senha_err)){
+        if(empty($msg)){
             // Prepare an insert statement
-            $sql = "INSERT INTO login (usuario, senha, salt) VALUES (?, ?, ?);";
+            $sql = "INSERT INTO produto (nomeProduto, quantidade, dataCadstro) VALUES (?, ?, ?);";
             
             if($stmt = mysqli_prepare($link, $sql)){
                 // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "sss", $param_usuario, $param_senha, $param_salt);
+                mysqli_stmt_bind_param($stmt, "sss", $param_nomeProduto, $param_quantidade, $param_dataCadastro);
                 
                 // Set parameters
-                $param_usuario = $usuario;
-                $param_salt = sha1(bin2hex(random_bytes(90)));
-                $param_senha = hash('sha256', $senha . $param_salt);
+                $param_nomeProduto = $nomeProduto;
+                $param_dataCadastro = 0;
+                $param_quantidade =$quantidade;
                 
                 // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
                     // Records created successfully. Redirect to landing page
-                    header("location: criarSucesso.php");
+                    header("location: criarProdutoSucesso.php");
                     exit();
                 } else{
                     echo "Oops! Something went wrong. Please try again later.";
@@ -74,21 +75,21 @@
 				<!-- Main -->
 					<div id="main">
 
-                        <!-- Criar Usuario -->
-                        <article id="criarUsuario">
-                            <h2 class="major">Criar usuário</h2>
+                        <!-- Criar nomeProduto -->
+                        <article id="criarnomeProduto">
+                            <h2 class="major">Criar Produto</h2>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                 <div class="fields">
                                     <div class="field half">
-                                        <label>Usuário</label>
-                                        <input type="text" name="usuario" class="form-control <?php echo (!empty($usuario_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $usuario; ?>">
-                                        <span class="invalid-feedback"><?php echo $usuario_err;?></span>
+                                        <label>Nome produto</label>
+                                        <input type="text" name="nomeProduto" class="form-control <?php echo (!empty($msg)) ? 'is-invalid' : ''; ?>" value="<?php echo $nomeProduto; ?>">
+                                        <span class="invalid-feedback"><?php echo $msg;?></span>
                                     </div>
 
                                     <div class="field half">
-                                        <label>Senha</label>
-                                        <input type="password" name="senha" class="form-control <?php echo (!empty($senha_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $senha; ?>">
-                                        <span class="invalid-feedback"><?php echo $senha_err;?></span>
+                                        <label>quantidade</label>
+                                        <input type="password" name="quantidade" class="form-control <?php echo (!empty($msg)) ? 'is-invalid' : ''; ?>" value="<?php echo $quantidade; ?>">
+                                        <span class="invalid-feedback"><?php echo $msg;?></span>
                                     </div>
                                 </div>
                                 

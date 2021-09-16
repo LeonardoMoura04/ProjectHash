@@ -8,6 +8,14 @@ CREATE TABLE login (
     salt VARCHAR(100) NOT NULL
 );
 
-DROP TABLE login;
+#DROP TABLE login;
+
+CREATE TABLE produto (
+	id INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+	nomeProduto VARCHAR(100) NOT NULL,
+    quantidade VARCHAR(100) NOT NULL,
+    dataCadastro VARCHAR(100) NOT NULL
+)
 
 SELECT * FROM login;
+SELECT * FROM produto;
