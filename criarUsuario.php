@@ -95,6 +95,7 @@
                                 <ul class="actions">
                                     <li><input type="submit" class="primary" value="Criar Usuário" /></li>
                                     <li><input type="reset" value="Resetar Campos" /></li>
+                                    <li><input type="button" value="Voltar" class="button_active" onclick="location.href='index.php';" /></li>
                                 </ul>
                             </form>
                         </article>
