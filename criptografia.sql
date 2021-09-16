@@ -15,7 +15,7 @@ CREATE TABLE produto (
 	nomeProduto VARCHAR(100) NOT NULL,
     quantidade VARCHAR(100) NOT NULL,
     dataCadastro VARCHAR(100) NOT NULL
-)
-
+);
+INSERT INTO produto (nomeProduto, quantidade, dataCadastro) VALUES ('teste', '2', '2021-09-16');
 SELECT * FROM login;
 SELECT * FROM produto;

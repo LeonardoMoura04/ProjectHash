@@ -36,7 +36,7 @@
                 
                 // Set parameters
                 $param_nomeProduto = $nomeProduto;
-                $param_dataCadastro = 0;
+                $param_dataCadastro = date("Y-m-d");
                 $param_quantidade =$quantidade;
                 
                 // Attempt to execute the prepared statement

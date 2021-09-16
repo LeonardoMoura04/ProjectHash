@@ -1,7 +1,7 @@
 <?php
 require("conexao.php");
 $query = "SELECT * FROM produto";
-$result = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
 $msg = "nenhum produto encontrado";
 ?>
 
@@ -46,10 +46,10 @@ $msg = "nenhum produto encontrado";
                         while($produto = mysqli_fetch_array($result)){
                             echo"
                             <tr> 
-                            <td>" . $produto['id . '] . "</td>     
+                            <td>" . $produto['id'] . "</td>     
                             <td>" . $produto['nomeProduto'] . "</td>     
-                            <td>" . md5($produto['quantidade']) . "</td>
-                            <td>" . sha1($produto['dataCadastro']) . "</td>
+                            <td>" . $produto['quantidade'] . "</td>
+                            <td>" . $produto['dataCadastro']  . "</td>
                             </tr>";     
                         }
 ?>

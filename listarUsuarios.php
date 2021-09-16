@@ -1,7 +1,8 @@
 <?php
-require("conexao.php");
-$query = "SELECT * FROM usuario";
-$result = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
+require_once "conexao.php";
+$query = "SELECT * FROM login";
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
+
 $msg = "nenhum usuario encontrado";
 ?>
 
@@ -38,7 +39,7 @@ $msg = "nenhum usuario encontrado";
                 <thead>
                     <th> ID </th>
                     <th> usuario </th>
-                    <th> bcript </th>
+                    <th> senha </th>
                 </thead>
                 <tbody>   
                     <?php 
@@ -46,9 +47,9 @@ $msg = "nenhum usuario encontrado";
                         while($usuario = mysqli_fetch_array($result)){
                             echo"
                             <tr> 
-                            <td>" . $usuario['ID . '] . "</td>     
+                            <td>" . $usuario['id'] . "</td>     
                             <td>" . $usuario['usuario'] . "</td>     
-                            <td>" . Password_hash($usuario['senha'], PASSWORD_BCRYPT, ['cost' => 8, 'salt' => 'asdfgwerwasdqweasdasda']). "</td>
+                            <td>" . $usuario['senha']. "</td>
                             </tr>";     
                         }
 ?>
