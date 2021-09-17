@@ -67,7 +67,7 @@
                             <td>" . $produto['id'] . "</td>     
                             <td>" . $produto['nomeProduto'] . "</td>     
                             <td>" . $produto['quantidade'] . "</td>
-                            <td>" . $produto['dataCadastro']  . "</td>
+                            <td>" . date("d/m/Y", strtotime($produto['dataCadastro']))  . "</td>
                             </tr>";
 						}
 						?>
