@@ -7,6 +7,7 @@ $msg = "nenhum usuario encontrado";
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 	<title>Cadastro</title>
 	<meta charset="UTF-8">
@@ -30,6 +31,7 @@ $msg = "nenhum usuario encontrado";
 
 <!--===============================================================================================-->
 </head>
+
 <body>
 	
 <table class="table table-striped">
@@ -43,41 +45,50 @@ $msg = "nenhum usuario encontrado";
   <tbody>   
                     <?php 
 
-                        while($usuario = mysqli_fetch_array($result)){
-                            echo"
+                <table class="table">
+                    <thead>
+                        <th> ID </th>
+                        <th> usuario </th>
+                        <th> senha </th>
+                    </thead>
+                    <tbody>
+                        <?php
+
+                        while ($usuario = mysqli_fetch_array($result)) {
+                            echo "
                             <tr> 
                             <td>" . $usuario['id'] . "</td>     
                             <td>" . $usuario['usuario'] . "</td>     
                             <td> •••••••••••••••••••••••••</td>
                             </tr>";     
                         }
-?>
-</tbody>
- </table>
-			
-			</div>
-		</div>
-	</div>
-	
-	
+                        ?>
+                    </tbody>
+                </table>
 
-	
-<!--===============================================================================================-->	
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-<!--===============================================================================================-->
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
-	<script >
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
-<!--===============================================================================================-->
-	<script src="js/main.js"></script>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!--===============================================================================================-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/tilt/tilt.jquery.min.js"></script>
+    <script>
+        $('.js-tilt').tilt({
+            scale: 1.1
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
 
 </body>
 </html>
