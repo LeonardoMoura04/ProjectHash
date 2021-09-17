@@ -26,6 +26,7 @@
 							<ul>
 								<li><a href="#cripto">Cripto</a></li>
 								<li><a href="listarProduto.php">Produtos</a></li>
+								<li><a href="listarUsuarios.php">Usuários</a></li>
                                 <li><a href="index.php">Deslogar</a></li>
 							</ul>
 						</nav>

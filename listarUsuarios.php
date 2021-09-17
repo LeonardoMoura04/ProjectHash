@@ -1,7 +1,7 @@
 <?php
 require("conexao.php");
-$query = "SELECT * FROM usuario";
-$result = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
+$query = "SELECT * FROM login";
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
 $msg = "nenhum usuario encontrado";
 ?>
 
@@ -26,29 +26,29 @@ $msg = "nenhum usuario encontrado";
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
 <!--===============================================================================================-->
 </head>
 <body>
 	
-	<div class="limiter">
-		<div class="">
-			<div class="">
-
-            <table class="table">
-                <thead>
-                    <th> ID </th>
-                    <th> usuario </th>
-                    <th> bcript </th>
-                </thead>
-                <tbody>   
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Usuário</th>
+      <th scope="col">Senha</th>
+    </tr>
+  </thead>
+  <tbody>   
                     <?php 
 
                         while($usuario = mysqli_fetch_array($result)){
                             echo"
                             <tr> 
-                            <td>" . $usuario['ID . '] . "</td>     
+                            <td>" . $usuario['id'] . "</td>     
                             <td>" . $usuario['usuario'] . "</td>     
-                            <td>" . Password_hash($usuario['senha'], PASSWORD_BCRYPT, ['cost' => 8, 'salt' => 'asdfgwerwasdqweasdasda']). "</td>
+                            <td> •••••••••••••••••••••••••</td>
                             </tr>";     
                         }
 ?>
@@ -81,3 +81,4 @@ $msg = "nenhum usuario encontrado";
 
 </body>
 </html>
+

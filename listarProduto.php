@@ -1,7 +1,7 @@
 <?php
 require("conexao.php");
 $query = "SELECT * FROM produto";
-$result = mysqli_query($conexao, $query) or die(mysqli_error($conexao));
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
 $msg = "nenhum produto encontrado";
 ?>
 
@@ -26,27 +26,29 @@ $msg = "nenhum produto encontrado";
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-<!--===============================================================================================-->
-</head>
-<body>
-	
-	<div class="limiter">
-		<div class="">
-			<div class="">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 
-            <tab<table class="table">
-                <thead>
-                    <th> ID </th>
-                    <th> Produto </th>
-                    <th> Quantidade </th>
-                    <th> DataCadastro </th>
-                </thead>
-                <tbody>   
+
+	<!--===============================================================================================-->
+</head>
+<body class="is-preload">
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Produto</th>
+      <th scope="col">Quantidade</th>
+      <th scope="col">DataCadastro</th>
+    </tr>
+  </thead>
+  <tbody>   
                     <?php 
                         while($produto = mysqli_fetch_array($result)){
                             echo"
                             <tr> 
-                            <td>" . $produto['id . '] . "</td>     
+                            <td>" . $produto['id'] . "</td>     
                             <td>" . $produto['nomeProduto'] . "</td>     
                             <td>" . md5($produto['quantidade']) . "</td>
                             <td>" . sha1($produto['dataCadastro']) . "</td>
@@ -54,12 +56,9 @@ $msg = "nenhum produto encontrado";
                         }
 ?>
 </tbody>
- </table>
-			</div>
-		</div>
-	</div>
-	
-	
+</table>
+
+					<
 
 	
 <!--===============================================================================================-->	
@@ -81,3 +80,7 @@ $msg = "nenhum produto encontrado";
 
 </body>
 </html>
+
+
+	
+	
