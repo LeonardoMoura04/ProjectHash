@@ -35,13 +35,6 @@ $msg = "nenhum usuario encontrado";
 <body>
 
     <table class="table table-striped">
-        <thead>
-            <tr>
-                <th scope="col">ID</th>
-                <th scope="col">Usuário</th>
-                <th scope="col">Senha</th>
-            </tr>
-        </thead>
         <tbody>
             <table class="table">
                 <thead>
@@ -55,7 +48,7 @@ $msg = "nenhum usuario encontrado";
                         echo "
                             <tr> 
                             <td>" . $usuario['id'] . "</td>     
-                            <td>" . $usuario['usuario'] . "</td>     
+                            <td>" . $usuario['usuario'] . "</td>        
                             <td> •••••••••••••••••••••••••</td>
                             </tr>";
                     }
