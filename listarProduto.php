@@ -33,7 +33,20 @@ $msg = "nenhum produto encontrado";
 	<!--===============================================================================================-->
 </head>
 <body class="is-preload">
+	<form method="POST" action="">
+		<input type="text" id="buscar" name="buscar" value=""><br>
+		<input type="submit" value="Buscar">
+	</form>
 
+	<?php
+	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+		$Pesquisa = $_POST['buscar'];
+		$query = "SELECT * FROM produto WHERE nomeProduto LIKE '%$Pesquisa%'";
+		$result = mysqli_query($link, $query) or die(mysqli_error($link));
+		$msg = "nenhum produto encontrado";
+	}
+	?>
 
 <table class="table table-striped">
   <thead>

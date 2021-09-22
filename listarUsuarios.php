@@ -33,7 +33,20 @@ $msg = "nenhum usuario encontrado";
 </head>
 
 <body>
+<form method="POST" action="">
+        <input type="text" id="buscar" name="buscar" value=""><br>
+        <input type="submit" value="Buscar">
+    </form>
 
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+        $Pesquisa = $_POST['buscar'];
+        $query = "SELECT * FROM login WHERE usuario LIKE '%$Pesquisa%'";
+        $result = mysqli_query($link, $query) or die(mysqli_error($link));
+        $msg = "nenhum usuario encontrado";
+    }
+    ?>
     <table class="table table-striped">
         <tbody>
             <table class="table">
