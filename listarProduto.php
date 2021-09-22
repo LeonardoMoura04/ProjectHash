@@ -1,3 +1,10 @@
+<?php
+require("conexao.php");
+$query = "SELECT * FROM produto";
+$result = mysqli_query($link, $query) or die(mysqli_error($link));
+$msg = "nenhum produto encontrado";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,62 +27,39 @@
 	<!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="css/util.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+
+
 	<!--===============================================================================================-->
 </head>
-
-<body>
-	<?php
-	require("conexao.php");
-	$query = "SELECT * FROM produto";
-	$result = mysqli_query($link, $query) or die(mysqli_error($link));
-	$msg = "nenhum produto encontrado";
-	?>
-
-	<form method="POST" action="">
-		<input type="text" id="buscar" name="buscar" value=""><br>
-		<input type="submit" value="Buscar">
-	</form>
-
-	<?php
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-		$Pesquisa = $_POST['buscar'];
-		$query = "SELECT * FROM produto WHERE nomeProduto LIKE '%$Pesquisa%'";
-		$result = mysqli_query($link, $query) or die(mysqli_error($link));
-		$msg = "nenhum produto encontrado";
-	}
-	?>
+<body class="is-preload">
 
 
-
-	<div class="limiter">
-		<div class="">
-			<div class="">
-
-				<table class="table">
-					<thead>
-						<th> ID </th>
-						<th> Produto </th>
-						<th> Quantidade </th>
-						<th> Data Cadastro </th>
-					</thead>
-					<tbody>
-						<?php
-						while ($produto = mysqli_fetch_array($result)) {
-							echo "
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Produto</th>
+      <th scope="col">Quantidade</th>
+      <th scope="col">DataCadastro</th>
+    </tr>
+  </thead>
+  <tbody>   
+                    <?php 
+                        while($produto = mysqli_fetch_array($result)){
+                            echo"
                             <tr> 
                             <td>" . $produto['id'] . "</td>     
                             <td>" . $produto['nomeProduto'] . "</td>     
-                            <td>" . $produto['quantidade'] . "</td>
-                            <td>" . date("d/m/Y", strtotime($produto['dataCadastro']))  . "</td>
-                            </tr>";
-						}
-						?>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+                            <td>" . md5($produto['quantidade']) . "</td>
+                            <td>" . sha1($produto['dataCadastro']) . "</td>
+                            </tr>";     
+                        }
+?>
+</tbody>
+</table>
+
+					<
 
 
 
@@ -98,5 +82,9 @@
 	<script src="js/main.js"></script>
 
 </body>
-
 </html>
+
+
+	
+	
+	
