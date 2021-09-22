@@ -51,8 +51,8 @@ $msg = "nenhum produto encontrado";
                             <tr> 
                             <td>" . $produto['id'] . "</td>     
                             <td>" . $produto['nomeProduto'] . "</td>     
-                            <td>" . md5($produto['quantidade']) . "</td>
-                            <td>" . sha1($produto['dataCadastro']) . "</td>
+                            <td>" . $produto['quantidade'] . "</td>
+                            <td>" . date("d/m/Y", strtotime($produto['dataCadastro'])) . "</td>
                             </tr>";     
                         }
 ?>
