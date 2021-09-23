@@ -1,115 +1,118 @@
 <?php
-    // Include config file
+
     require_once "conexao.php";
     
-    // Define variables and initialize with empty values
     $nomeProduto = "";
-    $quantidade = 0;
-    $dataCadastro = 0;
-    $msg = "";
-    // Processing form data when form is submitted
+    $quantidade = 1;
+    $dataCadastro = '';
+    $produto_err = $quantidade_err = "";
+
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-        // Validações
         $input_nomeProduto = trim($_POST["nomeProduto"]);
         if(empty($input_nomeProduto)){
-            $msg = "Por favor, insira um produto.";
+            $produto_err = "Por favor, insira um produto.";
         } else{
             $nomeProduto = $input_nomeProduto;
         }
 
         $input_quantidade = trim($_POST["quantidade"]);
         if(empty($input_quantidade)){
-            $msg = "Por favor, insira uma quantidade.";
+            $quantidade_err = "Por favor, insira uma quantidade.";
         } else{
             $quantidade = $input_quantidade;
         }
         
-        // Check input errors before inserting in database
-        if(empty($msg)){
-            // Prepare an insert statement
-            $sql = "INSERT INTO produto (nomeProduto, quantidade, dataCadstro) VALUES (?, ?, ?);";
+        if(empty($produto_err) && empty($quantidade_err)){
+            $sql = "INSERT INTO produto (id, nomeProduto, quantidade, dataCadastro) VALUES (?, ?, ?, ?);";
             
             if($stmt = mysqli_prepare($link, $sql)){
-                // Bind variables to the prepared statement as parameters
-                mysqli_stmt_bind_param($stmt, "sss", $param_nomeProduto, $param_quantidade, $param_dataCadastro);
+                mysqli_stmt_bind_param($stmt, "ssis", $param_id, $param_nomeProduto, $param_quantidade, $param_dataCadastro);
                 
-                // Set parameters
+                $param_id = sha1(bin2hex(random_bytes(90)));
                 $param_nomeProduto = $nomeProduto;
                 $param_dataCadastro = date("Y-m-d");
-                $param_quantidade =$quantidade;
+                $param_quantidade = $quantidade;
                 
-                // Attempt to execute the prepared statement
                 if(mysqli_stmt_execute($stmt)){
-                    // Records created successfully. Redirect to landing page
-                    header("location: criarProdutoSucesso.php");
-                    exit();
+                    echo "<script>alert('Você criou um produto com sucesso!')</script>";
+                    header("location: listarProduto.php");
                 } else{
-                    echo "Oops! Something went wrong. Please try again later.";
+                    echo "<script>alert('Erro. Algo deu errado. Por favor, tente novamente.')</script>";
                 }
 
-                // Close statement
                 mysqli_stmt_close($stmt);
             }
         }
 
-        // Close connection
         mysqli_close($link);
     }
 ?>
 
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Criptografia PHP - Criar Usuário</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
-	</head>
+<head>
+    <title>Cripto - Criar Produto</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+</head>
 	<body class="is-preload">
 
 		<!-- Wrapper -->
-			<div id="wrapper">
+        <div id="wrapper">
 
-				<!-- Main -->
-					<div id="main">
+            <!-- Header -->
+            <header id="header">
+                <div class="logo">
+                    <span class="fas fa-list fa-2x"></span>
+                </div>
+                
+                <div class="content">
+                    <div>
+                        </br>
+                        <h1>Criar Produto</h1>
 
-                        <!-- Criar nomeProduto -->
-                        <article id="criarnomeProduto">
-                            <h2 class="major">Criar Produto</h2>
+                        <section>
                             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                 <div class="fields">
                                     <div class="field half">
-                                        <label>Nome produto</label>
-                                        <input type="text" name="nomeProduto" class="form-control <?php echo (!empty($msg)) ? 'is-invalid' : ''; ?>" value="<?php echo $nomeProduto; ?>">
-                                        <span class="invalid-feedback"><?php echo $msg;?></span>
+                                        <label>Nome do produto</label>
+                                        <input type="text" name="nomeProduto" class="form-control <?php echo (!empty($produto_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $nomeProduto; ?>">
+                                        <span class="invalid-feedback"><?php echo $produto_err;?></span>
                                     </div>
 
                                     <div class="field half">
-                                        <label>quantidade</label>
-                                        <input type="password" name="quantidade" class="form-control <?php echo (!empty($msg)) ? 'is-invalid' : ''; ?>" value="<?php echo $quantidade; ?>">
-                                        <span class="invalid-feedback"><?php echo $msg;?></span>
+                                        <label>Quantidade</label>
+                                        <input type="text" name="quantidade" class="form-control <?php echo (!empty($quantidade_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $quantidade; ?>">
+                                        <span class="invalid-feedback"><?php echo $quantidade_err;?></span>
                                     </div>
                                 </div>
                                 
-                                <ul class="actions">
-                                    <li><input type="submit" class="primary" value="Criar Usuário" /></li>
+                                <ul class="actions" style="display: inline-flex;">
+                                    <li><input type="submit" class="primary" value="Criar Produto" /></li>
                                     <li><input type="reset" value="Resetar Campos" /></li>
-                                    <li><input type="button" value="Voltar" class="button_active" onclick="location.href='index.php';" /></li>
                                 </ul>
                             </form>
-                        </article>
-					</div>
+                        </section>
+                    </div>
+                </div>
 
-                    
+                <nav>
+                    <ul>
+                        <li><a href="menu.php">Voltar</a></li>
+                    </ul>
+                </nav>
 
-				<!-- Footer -->
-					<footer id="footer">
-						<p class="copyright">&copy; DLM. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
-					</footer>
+            </header>
 
-			</div>
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; DLM. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+            </footer>
+
+        </div>
 
 		<!-- BG -->
 			<div id="bg"></div>
