@@ -1,15 +1,11 @@
 <?php
-    // Include config file
     require_once "conexao.php";
     
-    // Define variables and initialize with empty values
     $usuario = $senha = "";
     $usuario_err = $senha_err = "";
     
-    // Processing form data when form is submitted
     if($_SERVER["REQUEST_METHOD"] == "POST"){
 
-        // Validações
         $input_usuario = trim($_POST["usuario"]);
         if(empty($input_usuario)){
             $usuario_err = "Por favor, insira seu usuario.";
@@ -24,7 +20,6 @@
             $senha = $input_senha;
         }
         
-        // Check input errors before inserting in database
         if(empty($usuario_err) && empty($senha_err)){
             $sql = "SELECT * FROM login WHERE usuario = ?";
         
@@ -45,23 +40,22 @@
                         $saltBanco = $row["salt"];
 
                         if(hash('sha256', $senha . $saltBanco) == $senhaBanco){
-                            header("location: logarSucesso.php");
-                            exit();
+                            echo "<script>alert('Você logou com sucesso!')</script>";
+                            header("location: menu.php");
+                        } else{
+                            echo "<script>alert('Senha incorreta.')</script>";
                         }
                     } else{
-                        header("location: ERROR_TO_DEFINE.php");
-                        exit();
+                        echo "<script>alert('Erro. Algo deu errado. Por favor, tente novamente.')</script>";
                     }
                     
                 } else{
-                    echo "Oops! Something went wrong. Please try again later.";
+                    echo "<script>alert('Erro. Algo deu errado. Por favor, tente novamente.')</script>";
                 }
             }
             
-            // Close statement
             mysqli_stmt_close($stmt);
             
-            // Close connection
             mysqli_close($link);
         }
     }
@@ -70,7 +64,7 @@
 <!DOCTYPE HTML>
 <html>
 	<head>
-		<title>Criptografia PHP</title>
+		<title>Cripto</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -88,7 +82,7 @@
 						</div>
 						<div class="content">
 							<div class="inner">
-								<h1>Criptografia</h1>
+								<h1>Projeto Cripto</h1>
 								<p>Aqui neste site, iremos exemplificar e colocar em prática os ensinamentos que foram apresentados <br></br>
                                     pelo Prof. Gregory Oliveira, do UNASP. Clique na aba "Cripto" abaixo para saber mais!
                                 </p>

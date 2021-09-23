@@ -1,102 +1,117 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+    require_once "conexao.php";
+    $query = "SELECT * FROM produto";
+    $result = mysqli_query($link, $query) or die(mysqli_error($link));
 
-<head>
-	<title>Cadastro</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="images/icons/favicon.ico" />
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-	<!--===============================================================================================-->
-	<link rel="stylesheet" type="text/css" href="css/util.css">
-	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<!--===============================================================================================-->
-</head>
+    $produto = "";
+    $produto_err = "";
 
-<body>
-	<?php
-	require("conexao.php");
-	$query = "SELECT * FROM produto";
-	$result = mysqli_query($link, $query) or die(mysqli_error($link));
-	$msg = "nenhum produto encontrado";
-	?>
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $pesquisa = $_POST['produto'];
+        $query = "SELECT * FROM produto WHERE nomeProduto LIKE '%$pesquisa%' OR quantidade LIKE '%$pesquisa%' OR dataCadastro LIKE '%$pesquisa%'";
+        $result = mysqli_query($link, $query) or die(mysqli_error($link));
+    }
+?>
 
-	<form method="POST" action="">
-		<input type="text" id="buscar" name="buscar" value=""><br>
-		<input type="submit" value="Buscar">
-	</form>
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>Cripto - Listar Produtos</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload" style="text-align: center;">
 
-	<?php
-	if ($_SERVER["REQUEST_METHOD"] == "POST") {
+		<!-- Wrapper -->
+        <div id="wrapper">
 
-		$Pesquisa = $_POST['buscar'];
-		$query = "SELECT * FROM produto WHERE nomeProduto LIKE '%$Pesquisa%'";
-		$result = mysqli_query($link, $query) or die(mysqli_error($link));
-		$msg = "nenhum produto encontrado";
-	}
-	?>
+            <!-- Header -->
+            <header id="header">
+                <div class="logo">
+                    <span class="fas fa-list fa-2x"></span>
+                </div>
+                
+                <div class="content">
+                    <div>
+                        </br>
+                        <h1>Listagem de Produtos</h1>
 
+                        <section>
+                            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" style="display: inline-block;">
+                                
+                                <label>Buscar Produto</label>
+                                <div class="fields">
+                                    <div class="field">
+                                        <input type="text" name="produto" class="form-control <?php echo (!empty($produto_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $produto; ?>">
+                                        <span class="invalid-feedback"><?php echo $produto_err;?></span>
+                                    </div>
+                                </div>
+                                
+                                <ul class="actions">
+                                    <li><input type="submit" class="primary" value="Buscar Produto" /></li>
+                                    <li><input type="reset" value="Resetar Campos" /></li>
+                                </ul>
+                            </form>
 
+                            <ul class="actions" style="display: block;">
+                                <li><a href="criarProduto.php" class="button primary icon solid">Criar Produto</a></li>
+                            </ul>
 
-	<div class="limiter">
-		<div class="">
-			<div class="">
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>Id Criptografado</th>
+                                            <th>Produto</th>
+                                            <th>Quantidade</th>
+                                            <th>Data de Cadastro</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                            while ($produtosBanco = mysqli_fetch_array($result)) {
+                                                echo "
+                                                <tr>
+                                                    <td>" . $produtosBanco['id'] . "</td>
+                                                    <td>" . $produtosBanco['nomeProduto'] . "</td>
+                                                    <td>" . $produtosBanco['quantidade'] . "</td>
+                                                    <td>" . date("d/m/Y", strtotime($produtosBanco['dataCadastro'])) . "</td>
+                                                </tr>";
+                                            }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
+                    </div>
+                </div>
 
-				<table class="table">
-					<thead>
-						<th> ID </th>
-						<th> Produto </th>
-						<th> Quantidade </th>
-						<th> Data Cadastro </th>
-					</thead>
-					<tbody>
-						<?php
-						while ($produto = mysqli_fetch_array($result)) {
-							echo "
-                            <tr> 
-                            <td>" . $produto['id'] . "</td>     
-                            <td>" . $produto['nomeProduto'] . "</td>     
-                            <td>" . $produto['quantidade'] . "</td>
-                            <td>" . $produto['dataCadastro']  . "</td>
-                            </tr>";
-						}
-						?>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
+                <nav>
+                    <ul>
+                        <li><a href="menu.php">Voltar</a></li>
+                    </ul>
+                </nav>
 
+            </header>                
 
+            <!-- Footer -->
+            <footer id="footer">
+                <p class="copyright">&copy; DLM. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+            </footer>
 
+        </div>
 
-	<!--===============================================================================================-->
-	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="vendor/bootstrap/js/popper.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="vendor/select2/select2.min.js"></script>
-	<!--===============================================================================================-->
-	<script src="vendor/tilt/tilt.jquery.min.js"></script>
-	<script>
-		$('.js-tilt').tilt({
-			scale: 1.1
-		})
-	</script>
-	<!--===============================================================================================-->
-	<script src="js/main.js"></script>
+		<!-- BG -->
+			<div id="bg"></div>
 
-</body>
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
 
+	</body>
 </html>
